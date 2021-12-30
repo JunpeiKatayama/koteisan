@@ -5,11 +5,11 @@ services:
         platform: linux/x86_64
         image: mysql:5.7
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: koteisan
-            MYSQL_USER: mysql
-            MYSQL_PASSWORD: mysql
-            TZ: 'Asia/Tokyo'
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            TZ: ${TZ}
         command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
         volumes:
         - ./db/data:/var/lib/mysql
@@ -41,7 +41,7 @@ services:
         image: node:16
         # 環境変数
         environment:
-            - PORT=8000
+            - PORT=${FRONT_PORT}
         tty: true
         # ホスト側のポート：コンテナのポート
         ports:
