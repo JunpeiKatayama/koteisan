@@ -1,0 +1,75 @@
+DROP TABLE IF EXISTS team;
+CREATE TABLE team(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    uuid VARCHAR(16) NOT NULL UNIQUE,
+    name VARCHAR(64) NOT NULL,
+    active_time TIME NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(64),
+    job_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS membership;
+CREATE TABLE membership(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    team_id INT NOT NULL,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS job;
+CREATE TABLE job(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(3) NOT NULL,
+    name_ja VARCHAR(64) NOT NULL,
+    role INT(1) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS team_cal;
+CREATE TABLE team_cal(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    team_id INT NOT NULL,
+    content_id INT NOT NULL,
+    note TEXT NOT NULL,
+    scheduled_at TIME NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS user_cal;
+CREATE TABLE user_cal(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    assignable INT NOT NULL,
+    note TEXT NOT NULL,
+    scheduled_at TIME NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS content;
+CREATE TABLE content(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(64) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+DROP TABLE IF EXISTS completed_content;
+CREATE TABLE completed_content(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    team_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
