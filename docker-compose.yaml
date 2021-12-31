@@ -24,6 +24,9 @@ services:
         # 環境変数
         environment:
             - DEBUG=app:*
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         tty: true
         # ホスト側のポート：コンテナのポート
         ports:

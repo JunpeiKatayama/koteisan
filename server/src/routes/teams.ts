@@ -11,7 +11,10 @@ var con = mysql.createConnection({
   database: env.MYSQL_DATABASE
 })
 
-/* GET home page. */
+/**
+ * チーム作成用エンドポイント
+ * @param {string} hoge - ホゲホゲええ
+ */
 router.get('/', function(req: any, res: any, next: any) {
   con.query('select COUNT(id) FROM user' ,function (err: any, rows: any, fields: any) {
     if (err) throw err
