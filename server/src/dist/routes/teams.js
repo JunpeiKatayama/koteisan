@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 var env = process.env;
-var mysql = require('mysql');
+var mysql = require("mysql");
 // コネクション作成
 var con = mysql.createConnection({
-    host: 'db',
+    host: "db",
     user: env.MYSQL_USER,
     password: env.MYSQL_PASSWORD,
-    database: env.MYSQL_DATABASE
+    database: env.MYSQL_DATABASE,
 });
 /**
  * チーム作成用エンドポイント
  */
-router.post('/create', function (req, res, next) {
+router.post("/create", function (req, res, next) {
     const team = req.body;
     let pageId = getPageId();
     // 念の為ページIDの重複を調べて、重複している場合再度IDを生成
@@ -22,11 +22,11 @@ router.post('/create', function (req, res, next) {
         pageId = getPageId();
     }
     team.page_id = pageId;
-    const sql = 'INSERT INTO team SET ?';
+    const sql = "INSERT INTO team SET ?";
     con.query(sql, team, function (err, result, fields) {
         if (err)
             throw err;
-        res.header('Content-Type', 'application/json; charset=utf-8');
+        res.header("Content-Type", "application/json; charset=utf-8");
         res.send(result);
     });
 });
@@ -51,8 +51,8 @@ function isExists(pageId) {
  */
 function getPageId() {
     let exists = false;
-    let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let randStr = '';
+    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let randStr = "";
     for (var i = 0; i < 16; i++) {
         randStr += chars.charAt(Math.floor(Math.random() * chars.length));
     }
