@@ -3,7 +3,8 @@ CREATE TABLE team(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     page_id VARCHAR(16) NOT NULL UNIQUE,
     name VARCHAR(64) NOT NULL,
-    active_time TIME NOT NULL,
+    active_time_from TIME NOT NULL,
+    active_time_to TIME NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
