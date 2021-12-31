@@ -15,19 +15,22 @@ var con = mysql.createConnection({
  * チーム作成用エンドポイント
  */
 router.post("/create", function (req, res, next) {
-    const team = req.body;
+    const team = req.body.team;
     let pageId = getPageId();
     // 念の為ページIDの重複を調べて、重複している場合再度IDを生成
     while (isExists(pageId)) {
         pageId = getPageId();
     }
     team.page_id = pageId;
+    team.created_at = new Date();
+    team.updated_at = new Date();
+    // DB操作
     const sql = "INSERT INTO team SET ?";
-    con.query(sql, team, function (err, result, fields) {
+    con.query(sql, team, function (err, result) {
         if (err)
             throw err;
         res.header("Content-Type", "application/json; charset=utf-8");
-        res.send(result);
+        res.send({ page_id: pageId });
     });
 });
 /**
@@ -36,9 +39,9 @@ router.post("/create", function (req, res, next) {
  * @returns boolean
  */
 function isExists(pageId) {
-    const sql = `SELECT COUNT(id) AS count FROM team WHERE page_id = ${pageId}`;
+    const sql = `SELECT COUNT(id) AS count FROM team WHERE page_id = ?`;
     let count = 0;
-    con.query(sql, function (err, rows, fields) {
+    con.query(sql, pageId, function (err, rows, fields) {
         if (err)
             throw err;
         count = rows.count;

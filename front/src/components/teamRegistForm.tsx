@@ -9,10 +9,15 @@ import axios from "axios";
  * チームフォーム登録フォームコンポーネント
  */
 const TeamRegistForm = () => {
+  const [isRegistered, setIsRegistered] = useState(false);
   const [team, setTeam] = useState({
+    id: null,
+    page_id: null,
     name: "",
-    activeTimeFrom: "22:00",
-    activeTimeTo: "24:00",
+    active_time_from: "22:00",
+    active_time_to: "24:00",
+    created_at: null,
+    updated_at: null,
   });
 
   /**
@@ -28,7 +33,7 @@ const TeamRegistForm = () => {
    * @param event
    */
   const handleChangeActiveTimeFrom = (event: any) => {
-    setTeam({ ...team, activeTimeFrom: event.target.value });
+    setTeam({ ...team, active_time_from: event.target.value });
   };
 
   /**
@@ -36,21 +41,24 @@ const TeamRegistForm = () => {
    * @param event
    */
   const handleChangeActiveTimeTo = (event: any) => {
-    setTeam({ ...team, activeTimeTo: event.target.value });
+    setTeam({ ...team, active_time_to: event.target.value });
   };
 
   /**
    * 登録ボタン押下時の処理
    */
-  const handleClickSubmit = () => {
-    axios.post(`http://localhost:3000/teams/create`, { team }).then((res) => {
-      console.log(res);
-      console.log(res.data);
+  const handleClickSubmit = async () => {
+    const res = await axios.post(`http://localhost:3000/teams/create`, {
+      team,
     });
+    if (res.data.page_id) {
+      setIsRegistered(true);
+    }
   };
 
   return (
     <div>
+      <h1>{isRegistered ? "true" : "false"}</h1>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item xs={12}>
           <TextField
