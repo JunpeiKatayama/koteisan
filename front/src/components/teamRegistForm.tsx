@@ -8,8 +8,7 @@ import axios from "axios";
 /**
  * チームフォーム登録フォームコンポーネント
  */
-const TeamRegistForm = () => {
-  const [isRegistered, setIsRegistered] = useState(false);
+const TeamRegistForm = (props) => {
   const [team, setTeam] = useState({
     id: null,
     page_id: null,
@@ -52,13 +51,12 @@ const TeamRegistForm = () => {
       team,
     });
     if (res.data.page_id) {
-      setIsRegistered(true);
+      props.setPageId(res.data.page_id);
     }
   };
 
   return (
     <div>
-      <h1>{isRegistered ? "true" : "false"}</h1>
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item xs={12}>
           <TextField

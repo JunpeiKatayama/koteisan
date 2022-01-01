@@ -1,9 +1,15 @@
 import type { NextPage } from "next";
+import { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import TeamRegistForm from "../components/teamRegistForm";
 
+/**
+ * トップページ
+ * @returns
+ */
 const Home: NextPage = () => {
+  const [pageId, setPageId] = useState("");
   return (
     <div className={styles.container}>
       <Head>
@@ -12,7 +18,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <TeamRegistForm />
+        <div>{pageId ? "true" : <TeamRegistForm setPageId={setPageId} />}</div>
       </main>
     </div>
   );
