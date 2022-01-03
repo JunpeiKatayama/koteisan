@@ -5,7 +5,7 @@ import Header from "../../components/header";
 const Team: NextPage = () => {
   return (
     <div className={styles.container}>
-      <Header name={""} />
+      <Header title={""} />
       <main className={styles.main}></main>
     </div>
   );
