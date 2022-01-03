@@ -4,11 +4,12 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { SetPageIdProps } from "../pages/index.js";
 
 /**
  * チームフォーム登録フォームコンポーネント
  */
-const TeamRegistForm = (props) => {
+const TeamRegistForm = (props: SetPageIdProps) => {
   const [team, setTeam] = useState({
     id: null,
     page_id: null,

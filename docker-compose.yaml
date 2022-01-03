@@ -1,58 +1,58 @@
-version: '3'
+version: "3"
 services:
-    # mysql
-    db:
-        platform: linux/x86_64
-        image: mysql:5.7
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            TZ: ${TZ}
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-        volumes:
-        - ./db/data:/var/lib/mysql
-        - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
-        - ./db/sql:/docker-entrypoint-initdb.d
-        ports:
-        - 3306:3306
-    # express
-    server:
-        # 起動イメージ
-        image: node:16
-        # 環境変数
-        environment:
-            - DEBUG=app:*
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-        tty: true
-        # ホスト側のポート：コンテナのポート
-        ports:
-            - '3000:3000'
-        # ホスト側のsrcをコンテナのappにマウント
-        volumes:
-            - ./server/src:/app
-        # 起動時のカレントフォルダ
-        working_dir: /app
-        # 起動後に実行するコマンド
-        command: sh -c 'npx tsc; npm run dev'
-    # next.js
-    front:
-        # 起動イメージ
-        image: node:16
-        # 環境変数
-        environment:
-            - PORT=${FRONT_PORT}
-        tty: true
-        # ホスト側のポート：コンテナのポート
-        ports:
-            - '8000:8000'
-        # ホスト側のsrcをコンテナのappにマウント
-        volumes:
-            - ./front/src:/app
-        # 起動時のカレントフォルダ
-        working_dir: /app
-        # 起動後に実行するコマンド
-        command: sh -c 'npm run dev'
+  # mysql
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+  # express
+  server:
+    # 起動イメージ
+    image: node:16
+    # 環境変数
+    environment:
+      - DEBUG=app:*
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    tty: true
+    # ホスト側のポート：コンテナのポート
+    ports:
+      - "3000:3000"
+    # ホスト側のsrcをコンテナのappにマウント
+    volumes:
+      - ./server/src:/app
+    # 起動時のカレントフォルダ
+    working_dir: /app
+    # 起動後に実行するコマンド
+    command: sh -c 'npx tsc; npm run dev'
+  # next.js
+  front:
+    # 起動イメージ
+    image: node:16
+    # 環境変数
+    environment:
+      - PORT=${FRONT_PORT}
+    tty: true
+    # ホスト側のポート：コンテナのポート
+    ports:
+      - "8000:8000"
+    # ホスト側のsrcをコンテナのappにマウント
+    volumes:
+      - ./front/src:/app
+    # 起動時のカレントフォルダ
+    working_dir: /app
+    # 起動後に実行するコマンド
+    command: sh -c 'npm run dev'
