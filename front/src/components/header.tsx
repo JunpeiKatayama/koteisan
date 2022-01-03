@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 type PageInfoProps = {
-  title: string | null;
+  title: string | undefined;
 };
 
 const Header = (props: PageInfoProps) => {

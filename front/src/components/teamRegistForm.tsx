@@ -10,6 +10,10 @@ import { SetPageIdProps } from "../pages/index.js";
  * チームフォーム登録フォームコンポーネント
  */
 const TeamRegistForm = (props: SetPageIdProps) => {
+  // domainを環境変数から取得
+  const serverDomain: string | undefined =
+    process.env.NEXT_PUBLIC_SERVER_DOMAIN;
+
   const [team, setTeam] = useState({
     id: null,
     page_id: null,
@@ -48,7 +52,8 @@ const TeamRegistForm = (props: SetPageIdProps) => {
    * 登録ボタン押下時の処理
    */
   const handleClickSubmit = async () => {
-    const res = await axios.post(`http://localhost:3000/teams/create`, {
+    console.log(serverDomain);
+    const res = await axios.post(`${serverDomain}/teams/create`, {
       team,
     });
     if (res.data.page_id) {

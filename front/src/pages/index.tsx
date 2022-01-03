@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   const [pageId, setPageId] = useState("");
   return (
     <div className={styles.container}>
-      <Header title={null} />
+      <Header title={""} />
       <main className={styles.main}>
         <div>
           {pageId ? (
