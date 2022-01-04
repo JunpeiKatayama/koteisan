@@ -35,6 +35,19 @@ router.post("/create", function (req: any, res: any, next: any) {
 });
 
 /**
+ * チームをpageIdから検索するエンドポイント
+ */
+router.get("/:pageId", function (req: any, res: any) {
+  const pageId: string = req.params.pageId;
+  const sql: string = "SELECT * FROM team WHERE page_id = ?";
+  con.query(sql, pageId, function (err: any, result: any) {
+    if (err) throw err;
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.send({ teamInfo: result });
+  });
+});
+
+/**
  * 生成したページIDが存在するかどうか判定する
  * @param {string} pageId - page_id
  * @returns boolean

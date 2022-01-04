@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import styles from "../../styles/Home.module.css";
 import Header from "../../components/header";
+import axios from "axios";
 
 type Props = {
   teamInfo?: TeamInfo;
@@ -15,8 +16,9 @@ type TeamInfo = {
   updated_at: Date;
 };
 
-// domainを環境変数から取得
-const serverDomain: string | undefined = process.env.NEXT_PUBLIC_SERVER_DOMAIN;
+// inner_domainを環境変数から取得
+const serverDomain: string | undefined =
+  process.env.NEXT_PUBLIC_SERVER_INNER_DOMAIN;
 
 const TeamPage: NextPage<Props> = ({ teamInfo }) => {
   return (
@@ -29,10 +31,8 @@ const TeamPage: NextPage<Props> = ({ teamInfo }) => {
 
 TeamPage.getInitialProps = async ({ query }) => {
   const { id } = query;
-  console.log(id);
-  const res: Response = await fetch(`${serverDomain}/teams/${id}`);
-  const json = await res.json();
-  return { teamInfo: json.teamInfo };
+  const res = await axios.get(`${serverDomain}/teams/${id}`);
+  return { teamInfo: res.data.teamInfo };
 };
 
 export default TeamPage;
