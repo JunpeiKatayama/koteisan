@@ -43,7 +43,7 @@ router.get("/:pageId", function (req, res) {
         if (err)
             throw err;
         res.header("Content-Type", "application/json; charset=utf-8");
-        res.send({ teamInfo: result });
+        res.send({ teamInfo: result[0] });
     });
 });
 /**

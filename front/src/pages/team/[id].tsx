@@ -8,7 +8,6 @@ type Props = {
 };
 type TeamInfo = {
   id: number;
-  page_id: string;
   name: string;
   active_time_from: string;
   active_time_to: string;
@@ -21,6 +20,7 @@ const serverDomain: string | undefined =
   process.env.NEXT_PUBLIC_SERVER_INNER_DOMAIN;
 
 const TeamPage: NextPage<Props> = ({ teamInfo }) => {
+  console.log(teamInfo);
   return (
     <div className={styles.container}>
       <Header title={teamInfo && teamInfo.name} />

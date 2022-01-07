@@ -18,6 +18,7 @@ const TeamRegistForm = (props: SetPageIdProps) => {
     id: null,
     page_id: null,
     name: "",
+    description: "",
     active_time_from: "22:00",
     active_time_to: "24:00",
     created_at: null,
@@ -30,6 +31,14 @@ const TeamRegistForm = (props: SetPageIdProps) => {
    */
   const handleChangeName = (event: any) => {
     setTeam({ ...team, name: event.target.value });
+  };
+
+  /**
+   * descriptionフォームの入力値をセット
+   * @param event
+   */
+  const handleChangeDescription = (event: any) => {
+    setTeam({ ...team, description: event.target.value });
   };
 
   /**
@@ -67,17 +76,29 @@ const TeamRegistForm = (props: SetPageIdProps) => {
         <Grid item xs={12}>
           <TextField
             required
-            id="standard-required"
+            id="name"
             label="チーム名"
             helperText="64文字以内"
             variant="standard"
             onChange={handleChangeName}
           />
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            placeholder="例)週2基本22時〜！土日はやる気によりけり"
+            multiline
+            rows={4}
+            id="description"
+            label="説明"
+            variant="standard"
+            onChange={handleChangeDescription}
+            style={{ width: 280 }}
+          />
+        </Grid>
         <Grid item xs={6}>
           <TextField
             required
-            id="standard-required"
+            id="activeTimeFrom"
             label="活動時間(from)"
             defaultValue="22:00"
             variant="standard"
@@ -87,7 +108,7 @@ const TeamRegistForm = (props: SetPageIdProps) => {
         <Grid item xs={6}>
           <TextField
             required
-            id="standard-required"
+            id="activeTimeTo"
             label="活動時間(to)"
             defaultValue="24:00"
             variant="standard"

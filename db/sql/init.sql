@@ -1,8 +1,12 @@
+CREATE DATABASE IF NOT EXISTS koteisan;
+USE koteisan;
+
 DROP TABLE IF EXISTS team;
 CREATE TABLE team(
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     page_id VARCHAR(16) NOT NULL UNIQUE,
     name VARCHAR(64) NOT NULL,
+    description TEXT,
     active_time_from TIME NOT NULL,
     active_time_to TIME NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
